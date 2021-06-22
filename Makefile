@@ -6,8 +6,7 @@ compile:
 	sed '1d' -i temp/main.js
 	sed '1d' -i temp/main.js
 	sed '1d' -i temp/main.js
-	sed '$$d' -i temp/main.js
-	sed '$$d' -i temp/main.js
+	for i in {1..14}; do sed '$$d' -i temp/main.js; done
 
 build: compile
 	mkdir -p build
