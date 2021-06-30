@@ -9,11 +9,10 @@ class Main {
     static function main() {
         Shim.canvas.width = Shim.canvas.height = screenSize;
         var time:Int = 0;
-        var randomSeed;
         var pixels:Array<Int> = [];
-        var colors = [ '#000', '#030', '#240', '#350', '#600', '#700', '#999', '#aaa' ];
+        var colors = [ '#000', '#030', '#111', '#240', '#350', '#600', '#650', '#700', '#750', '#800', '#999', '#aaa', '#baa', '#bbb', '#caa', '#daa', '#faa'];
         var w = 256;
-        var h = 128;
+        var h = 32;
         function scale(s) {
             Shim.context.scale(s, s);
         }
@@ -35,30 +34,44 @@ class Main {
             Shim.context.arc(x, y, r, 0, 7);
             Shim.context.fill();
         }
-        function random():Float {
-            var x = (Math.sin(randomSeed++) + 1) * 99;
-            return x - Std.int(x);
-        }
         inline function setPixel(x, y, c) {
-            pixels[y * w+ x] = c;
+            pixels[y * w + x] = c;
+        }
+        inline function spread(x, y) {
+            var src = x + w * y;
+            var p = pixels[src];
+
+            if(p == 0) {
+                setPixel(x, y - 1, 0);
+            } else {
+                var r = Std.int(Math.random() * 7 - 3);
+                var dst = src - r;
+                setPixel(x - r, y - 1, p - (r == 3 ? 0 : 1));
+            }
         }
         function loop(t:Float) {
             {
-                Shim.canvas.width = screenSize;
+                Shim.canvas.width = w*2;
                 scale(2);
+
+                col('#000');
+                Shim.context.fillRect(0, 0, w, w);
 
                 for(y in 0...h) {
                     for(x in 0...w) {
-                        drawPixel(x, y, pixels[y * w + x]);
+                        spread(x, y);
+                        drawPixel(x, w - h + y, pixels[y * w + x]);
                     }
                 }
             }
-            untyped requestAnimationFrame(loop);
+            // untyped requestAnimationFrame(loop);
+            untyped setTimeout(loop, 30);
         }
 
         for(y in 0...h) {
             for(x in 0...w) {
-                setPixel(x, y, Std.int(Math.random() * 8));
+                setPixel(x, y, 0);
+                setPixel(x, h - 1, 16);
             }
         }
 
