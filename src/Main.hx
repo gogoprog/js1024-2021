@@ -38,7 +38,7 @@ class Main {
             Shim.context.fillRect(x, y, 1, 1);
         }
         untyped onmousemove = function(e) {
-            mx = e.clientX / 2;
+            mx = Std.int(e.clientX / 2);
 
             if(e.buttons) {
                 stick = false;
