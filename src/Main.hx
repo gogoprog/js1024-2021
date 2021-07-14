@@ -37,7 +37,7 @@ class Main {
             col(colors[c]);
             Shim.context.fillRect(x, y, 1, 1);
         }
-        untyped onmousemove = function(e) {
+        untyped onmousemove = onmousedown = function(e) {
             mx = Std.int(e.clientX / 2);
 
             if(e.buttons) {
@@ -99,9 +99,9 @@ class Main {
 
                 for(j in 0...10) {
                     for(i in 0...13) {
-                        if(untyped !hits[i * w + j]) {
-                            if(collision(14 + i * 18, 15 + j * 10, 16, 4)) {
-                                hits[i * w + j] = 1;
+                        if(untyped !hits[j * 13 + i]) {
+                            if(collision(14 + i * 18, 15 + j * 11, 16, 6)) {
+                                hits[j * 13 + i] = 1;
                             }
                         }
                     }
@@ -133,6 +133,19 @@ class Main {
                 setPixel(x, h - 1, 18);
             }
         }
+
+        hits = [
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1,
+            1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1,
+            1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+            1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1,
+            1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+            1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1,
+            1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1,
+            1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1,
+        ];
 
         loop(0);
     }

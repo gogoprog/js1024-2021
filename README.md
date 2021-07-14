@@ -1,9 +1,8 @@
-# ?
+# Monster Breakout
 
 ## JS1024
 
 Entry for JS1024 2021 : Annual javascript golfing competition.
-
 
 ## Build
 
